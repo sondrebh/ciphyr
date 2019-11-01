@@ -5,6 +5,7 @@ const config = {
   entry: './src/js/app.js',
   output: {
     path: path.resolve(__dirname, 'build/js'),
+    publicPath: 'build/js',
     filename: 'app.js'
   },
   module: {
@@ -36,6 +37,10 @@ const config = {
       '.js',
       '.jsx'
     ]
+  },
+  devtool: 'cheap-module-eval-source-map',
+  devServer: {
+    historyApiFallback: true
   }
 };
 

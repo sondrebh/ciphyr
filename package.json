@@ -21,11 +21,14 @@
   },
   "scripts": {
     "dev": "webpack --watch --mode=development",
-    "build": "webpack --mode=production"
+    "build": "webpack --mode=production",
+    "dev-server": "webpack-dev-server"
   },
   "dependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",
     "react": "^16.11.0",
-    "react-dom": "^16.11.0"
+    "react-dom": "^16.11.0",
+    "react-router-dom": "^5.1.2",
+    "webpack-dev-server": "^3.9.0"
   }
 }
