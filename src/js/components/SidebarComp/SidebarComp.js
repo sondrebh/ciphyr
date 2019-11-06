@@ -1,14 +1,18 @@
-import React, { useContext } from 'react';
-import AppContext from '../../context/AppContext';
+// Contrib
+import React from 'react';
+
+// Logo
+import '../../../icons/ciphyrLogo.svg';
+
+// Comps
+import RoomView from '../RoomView/RoomView';
 
 const SidebarComp = () => {
-
-    const { state, dispatch } = useContext(AppContext);
-  
     return (
-      <div>
-        <h1>Hi Im SidebarComp bro</h1>
+      <div className='SidebarComp'>
+        <img src="../" alt=""/>
         <p>{state.text}</p>
+        <RoomView />
       </div>
     );
   };

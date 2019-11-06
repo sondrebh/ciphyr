@@ -16,10 +16,12 @@ const ChatClient = () => {
     const [ state, dispatch ] = useReducer(appReducer, initState);
 
     return (
-        <AppContext.Provider value={ { state, dispatch } }>
-            <SidebarComp />
-            <ChatComp />
-        </AppContext.Provider>
+        <div className='ChatClient'>
+            <AppContext.Provider value={ { state, dispatch } }>
+                <SidebarComp />
+                <ChatComp />
+            </AppContext.Provider>
+        </div>
     );
 };
 
