@@ -1,0 +1,19 @@
+.Room {
+    border: none;
+    justify-content: left;
+    background: #DFDFDF;
+    padding: 0px 10px;
+
+    &:hover {
+        background: #CFCFCF;
+    }
+}
+
+.Room--active {
+    color: $white;
+    background: $ciphyrRed;
+
+    &:hover {
+        background: $ciphyrRed;
+    }
+}

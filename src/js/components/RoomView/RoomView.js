@@ -1,14 +1,24 @@
-import React, { useContext } from 'react';
-import AppContext from '../../context/AppContext';
+// Contrib
+import React from 'react';
+
+// plusIcon
+import plusIcon from '../../../icons/plusIcon.svg';
+
+// Comps
+import Room from '../room/room';
 
 const RoomView = () => {
-
-    const { state, dispatch } = useContext(AppContext);
-  
     return (
-      <div>
-        <h1>Hi Im RoomView bro</h1>
-        <p>{state.text}</p>
+      <div className="RoomView">
+        <p>Active rooms</p>
+
+        <Room active='true'>Eddie Morra</Room>
+        <Room>Max</Room>
+        <Room>Erik</Room>
+
+        <button>
+          <img src={plusIcon} />
+        </button>
       </div>
     );
   };

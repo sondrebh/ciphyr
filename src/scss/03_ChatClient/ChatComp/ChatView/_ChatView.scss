@@ -1,0 +1,9 @@
+.ChatView {
+    height: 80%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column-reverse;
+
+    @import './Message/Message';
+}

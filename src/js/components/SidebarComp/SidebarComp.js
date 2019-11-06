@@ -2,16 +2,15 @@
 import React from 'react';
 
 // Logo
-import '../../../icons/ciphyrLogo.svg';
+import logoSvg from '../../../icons/ciphyrLogo.svg';
 
 // Comps
 import RoomView from '../RoomView/RoomView';
 
-const SidebarComp = () => {
+const SidebarComp = () => { 
     return (
       <div className='SidebarComp'>
-        <img src="../" alt=""/>
-        <p>{state.text}</p>
+        <img src={logoSvg} />
         <RoomView />
       </div>
     );

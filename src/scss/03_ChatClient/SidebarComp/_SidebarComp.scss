@@ -1,0 +1,16 @@
+.SidebarComp {
+    height: 100%;
+
+    border-right: 3px solid $separatorGrey;
+
+    img {
+        margin-top: $marginTop;
+        width: 180px;
+    }
+
+    .RoomView {
+        margin-top: 20px;
+    }
+
+    @import './RoomView/RoomView';
+}

@@ -1,13 +1,14 @@
-import React, { useContext } from 'react';
-import AppContext from '../../context/AppContext';
+// Contrib
+import React from 'react';
+
+// Comps
+import ChatView from '../chatview/ChatView';
 
 const ChatComp = () => {
-
-    const { state, dispatch } = useContext(AppContext);
-  
     return (
-      <div>
-        <h1>Hi Im ChatComp bro</h1>
+      <div className='ChatComp'>
+        <ChatView />
+        <input value='Your message here...'></input>
       </div>
     );
   };

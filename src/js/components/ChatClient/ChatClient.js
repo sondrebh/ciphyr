@@ -8,8 +8,8 @@ import AppContext from '../../context/AppContext';
 import initState from './initState';
 
 // Comps
-import ChatComp from '../ChatComp/ChatComp';
-import SidebarComp from '../SidebarComp/SidebarComp';
+import ChatComp from '../chatcomp/ChatComp';
+import SidebarComp from '../sidebarcomp/SidebarComp';
 
 const ChatClient = () => {
 

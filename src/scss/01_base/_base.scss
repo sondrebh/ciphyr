@@ -2,7 +2,9 @@ html {
     height: 100%;
     width: 100%;
 
+    font-family: $fontFamily;
     font-size: 62.5%;
+    color: $black;
 }
 
 body {
@@ -27,6 +29,33 @@ h3 {
     font-size: 3rem;
 }
 
-p, a {
+p, a, button {
     font-size: 2rem;
+}
+
+button {
+    background: $white;
+    height: 40px;
+    border: 2px solid $black;
+    border-radius: 10px;
+    outline: none;
+
+    font-size: 1.6rem;
+    font-weight: $medium;
+
+    &:hover {
+        cursor: pointer;
+        border: 2px solid $separatorGrey;
+    }
+}
+
+input {
+    outline: none;
+    border: none;
+    border-top: 2px solid $separatorGrey;
+    width: 100%;
+    padding: 14px;
+    font-size: 2rem;
+    font-weight: $regular;
+    color: $black;
 }

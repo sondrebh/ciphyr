@@ -1,0 +1,10 @@
+.ChatComp {
+    height: 100%;
+    padding: 0px 60px;
+
+    @import './ChatView/ChatView';
+
+    input {
+        margin-top: 20px;
+    }
+}

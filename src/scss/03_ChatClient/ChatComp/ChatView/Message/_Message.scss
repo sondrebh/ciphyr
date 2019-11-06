@@ -1,0 +1,32 @@
+.Message {
+    width: 100%;
+    border-radius: 8px;
+    border: 2px solid $message;
+    padding: 12px 14px;
+    margin-top: 20px;
+
+    div {
+        height: 20px;
+    }
+
+    h3 {
+        font-size: 2rem;
+        font-weight: $semi;
+        float: left;
+
+        &:last-of-type {
+            float: right;
+        }
+    }
+
+    p {
+        display: block;
+        margin-top: 8px;
+        font-weight: $regular;
+    }
+}
+
+.Message--recieved {
+    background: $message;
+    color: $white;
+}
