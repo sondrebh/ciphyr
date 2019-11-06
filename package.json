@@ -25,6 +25,7 @@
     "dev-server": "webpack-dev-server"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.6.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",

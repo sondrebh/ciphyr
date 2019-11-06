@@ -1,17 +1,19 @@
 import React from 'react';
-import { NavLink, Link, Switch, BrowserRouter, Route } from 'react-router-dom'; 
+import { Switch, BrowserRouter, Route } from 'react-router-dom'; 
 
 import Home from '../components/home/home';
-import Chat from '../components/chat/chat';
+import ChatClient from '../components/ChatClient/ChatClient';
+import NotFound from '../components/404/404';
 
 const AppRouter = () => {
     return (
-      <BrowserRouter>
-        <Switch>
-            <Route path="/" component={Home} exact={true} />
-            <Route path="/chat" component={Chat} />
-        </Switch>
-    </BrowserRouter>  
+        <BrowserRouter>
+            <Switch>
+                <Route path="/" component={Home} exact={true} />
+                <Route path="/chat" component={ChatClient} />
+                <Route component={NotFound} />
+            </Switch>
+        </BrowserRouter>  
     );
 };
 
