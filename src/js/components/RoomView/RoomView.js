@@ -1,5 +1,8 @@
 // Contrib
-import React from 'react';
+import React, { useContext } from 'react';
+
+// Context
+import AppContext from '../../context/AppContext';
 
 // plusIcon
 import plusIcon from '../../../icons/plusIcon.svg';
@@ -8,15 +11,21 @@ import plusIcon from '../../../icons/plusIcon.svg';
 import Room from '../room/room';
 
 const RoomView = () => {
+
+    const { state, dispatch } = useContext(AppContext);
+    
     return (
       <div className="RoomView">
         <p>Active rooms</p>
 
-        <Room active='true'>Eddie Morra</Room>
-        <Room>Max</Room>
-        <Room>Erik</Room>
+        { state.rooms.map( room => (
+          <Room 
+            room={room}
+            key={room.id}
+          />
+         ))}
 
-        <button>
+        <button onClick={ () => dispatch( { type: 'ROOM_ADD' } ) }>
           <img src={plusIcon} />
         </button>
       </div>
