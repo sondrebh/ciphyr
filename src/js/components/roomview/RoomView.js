@@ -5,7 +5,8 @@ import React, { useContext } from 'react';
 import AppContext from '../../context/AppContext';
 
 // plusIcon
-import plusIcon from '../../../icons/plusIcon.svg';
+import plusIconEnabled from '../../../icons/plusIconEnabled.svg';
+import plusIconDisabled from '../../../icons/plusIconDisabled.svg';
 
 // Comps
 import Room from '../room/room';
@@ -13,7 +14,7 @@ import Room from '../room/room';
 const RoomView = () => {
 
     const { state, dispatch } = useContext(AppContext);
-    
+
     return (
       <div className="RoomView">
         <p>Active rooms</p>
@@ -25,8 +26,18 @@ const RoomView = () => {
           />
          ))}
 
-        <button onClick={ () => dispatch( { type: 'ROOM_ADD' } ) }>
-          <img src={plusIcon} />
+        <button 
+          onClick={ () => dispatch( { type: 'ROOM_ADD' } ) }
+          disabled={!state.isSet}
+          className={!state.isSet ? 'disabled' : ''}
+        >
+          {(() => {
+            if(state.isSet) {
+              return <img src={plusIconEnabled} />
+            } else {
+              return <img src={plusIconDisabled} />
+            }
+          })()}
         </button>
       </div>
     );

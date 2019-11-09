@@ -1,6 +1,12 @@
 const appReducer = (state, action) => {
     switch (action.type) {
     
+      case 'SET_STATE':
+        return {
+          ...state,
+          isSet: action.isSet
+        };
+
       case 'ROOM_SET_CURRENT':
         return {
           ...state,

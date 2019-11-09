@@ -1,5 +1,7 @@
 const initState = {
     myName: 'Sondre',
+    masterkey: '',
+    isSet: false,
     rooms: [
         {
             id: 'U9ISAH8979S998ASHD980',

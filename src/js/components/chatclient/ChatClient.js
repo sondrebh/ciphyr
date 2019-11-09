@@ -1,5 +1,5 @@
 // Contrib
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom'; 
 
 // State - related
@@ -14,6 +14,14 @@ import SidebarComp from '../sidebarcomp/SidebarComp';
 const ChatClient = () => {
 
     const [ state, dispatch ] = useReducer(appReducer, initState);
+
+    // useEffect(() => {
+    //     if(localStorage.getItem('state')) {
+    //         dispatch( { type: 'SET_STATE', isSet: true } );
+    //     } else {
+    //         dispatch( { type: 'SET_STATE', isSet: false } );
+    //     }
+    // }, []);
 
     return (
         <div className='ChatClient'>
