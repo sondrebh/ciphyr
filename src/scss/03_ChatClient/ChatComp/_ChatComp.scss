@@ -2,6 +2,8 @@
     height: 100%;
     padding: 0px 60px;
 
+    @import './DecryptingForm/DecryptingForm';
+
     @import './LoadForm/LoadForm';
 
     @import './CreateForm/CreateForm';

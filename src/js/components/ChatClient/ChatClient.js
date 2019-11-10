@@ -1,6 +1,9 @@
 // Contrib
 import React, { useReducer, useEffect } from 'react';
 
+// Custom
+import { ciphEncrypt } from '../../helpers/helpers';
+
 // State - related
 import appReducer from '../../reducers/appReducer';
 import AppContext from '../../context/AppContext';
@@ -24,7 +27,7 @@ const ChatClient = () => {
 
     useEffect(() => {
         if(state.isSet) {
-            localStorage.setItem('state', JSON.stringify(state));
+            localStorage.setItem('state', ciphEncrypt(JSON.stringify(state), state.masterkey));
         }
     });
 

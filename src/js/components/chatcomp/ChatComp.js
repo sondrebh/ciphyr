@@ -4,6 +4,7 @@ import React, { useContext } from 'react';
 import AppContext from '../../context/AppContext';
 
 // Comps
+import DecryptingForm from '../decryptingform/DecryptingForm';
 import LoadForm from '../loadform/LoadForm';
 import CreateForm from '../createform/CreateForm';
 import RegisterForm from '../registerform/RegisterForm';
@@ -36,7 +37,7 @@ const ChatComp = () => {
               );
             } 
 
-            if(!state.isSet && !state.load) {
+            if(!state.isSet && !state.load && !state.decrypting) {
               return <RegisterForm />
             }
 
@@ -46,6 +47,10 @@ const ChatComp = () => {
 
             if(state.load) {
               return <LoadForm />
+            }
+
+            if(state.decrypting) {
+              return <DecryptingForm />
             }
 
           })()

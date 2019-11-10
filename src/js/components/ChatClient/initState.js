@@ -3,6 +3,7 @@ const initState = {
     masterkey: '',
     isSet: false,
     load: false,
+    decrypting: false,
     rooms: [],
     currentRoom: {
         id: 'IUAHDSUIASHUISAHCSAIP0',

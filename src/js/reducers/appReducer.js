@@ -160,9 +160,27 @@ const appReducer = (state, action) => {
       
       case 'LOAD_STATE_START':
         return {
-          ...JSON.parse(localStorage.getItem('state')),
+          ...state,
+          masterkey: action.masterKey,
           load: false,
+          decrypting: true
+        };
+
+      case 'LOAD_STATE_COMPLETE':
+        return {
+          ...state,
+          ...JSON.parse(action.str),
+          load: false,
+          decrypting: false,
           isSet: true
+        };
+
+      case 'START_FRESH':
+        return {
+          ...state,
+          load: false,
+          decrypting: false,
+          isSet: false
         };
 
       default:

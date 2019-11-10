@@ -1,7 +1,7 @@
 import CPR from 'crypto-random-string';
 import sha512 from 'js-sha512';
 
-const charset = 'abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ0123456789|!"#¤%&/()=?+¨^*-. _:;,<>@£$€{[]}}´~' + "'";
+const charset = '!\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~æøå ';
 
 const ciphEncrypt = (str, key) => {
     let chunks = str.split('');
@@ -11,18 +11,30 @@ const ciphEncrypt = (str, key) => {
 }
 
 const ciphDecrypt = (arr, key) => {
-    let chars = charset.split('');
+    let decrypted = new Promise((resolve, reject) => {
+        let chars = charset.split('');
 
-    let decryptedString = '';
-    arr.forEach( hash => {
-        chars.forEach( char => {
-            if(sha512(char + key) === hash) {
-                decryptedString += char;
+        let decryptedString = '';
+        arr.forEach( hash => {
+            chars.forEach( char => {
+                if(sha512(char + key) === hash) {
+                    decryptedString += char;
+                }
+            })
+            if(decryptedString.length === arr.length) {
+                resolve(decryptedString);
             }
-        })
+        });
+
+        setTimeout(() => {
+            if(decryptedString.length !== arr.length) {
+                reject('Failed to decrypt...');
+            }
+        }, 60000);
+
     });
 
-    return decryptedString;
+    return decrypted;
 }
 
 export { CPR, ciphEncrypt, ciphDecrypt };
