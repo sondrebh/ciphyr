@@ -157,6 +157,13 @@ const appReducer = (state, action) => {
           ...state,
           load: true
         };
+      
+      case 'LOAD_STATE_START':
+        return {
+          ...JSON.parse(localStorage.getItem('state')),
+          load: false,
+          isSet: true
+        };
 
       default:
         return state

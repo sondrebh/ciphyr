@@ -1,5 +1,5 @@
 const initState = {
-    myName: 'Sondre',
+    myName: '',
     masterkey: '',
     isSet: false,
     load: false,

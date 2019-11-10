@@ -4,9 +4,6 @@ import sha512 from 'js-sha512';
 const charset = 'abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ0123456789|!"#¤%&/()=?+¨^*-. _:;,<>@£$€{[]}}´~' + "'";
 
 const ciphEncrypt = (str, key) => {
-    if(!str) {
-        return '';
-    }
     let chunks = str.split('');
     return chunks.map( chunk => {
         return sha512(chunk + key);
@@ -16,10 +13,6 @@ const ciphEncrypt = (str, key) => {
 const ciphDecrypt = (arr, key) => {
     let chars = charset.split('');
 
-    if(!arr) {
-        return '';
-    }
-
     let decryptedString = '';
     arr.forEach( hash => {
         chars.forEach( char => {
@@ -28,6 +21,7 @@ const ciphDecrypt = (arr, key) => {
             }
         })
     });
+
     return decryptedString;
 }
 
