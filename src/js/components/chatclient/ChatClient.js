@@ -1,6 +1,8 @@
 // Contrib
 import React, { useReducer, useEffect } from 'react';
-import { NavLink, Link } from 'react-router-dom'; 
+
+// Custom
+import { ciphEncrypt } from '../../helpers/helpers';
 
 // State - related
 import appReducer from '../../reducers/appReducer';
@@ -15,13 +17,13 @@ const ChatClient = () => {
 
     const [ state, dispatch ] = useReducer(appReducer, initState);
 
-    // useEffect(() => {
-    //     if(localStorage.getItem('state')) {
-    //         dispatch( { type: 'SET_STATE', isSet: true } );
-    //     } else {
-    //         dispatch( { type: 'SET_STATE', isSet: false } );
-    //     }
-    // }, []);
+    useEffect(() => {
+        if(localStorage.getItem('state')) {
+            dispatch( { type: 'LOAD_STATE' } );
+        } else {
+            dispatch( { type: 'SET_STATE', isSet: false } );
+        }
+    }, []);
 
     return (
         <div className='ChatClient'>

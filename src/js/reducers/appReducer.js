@@ -1,6 +1,52 @@
+import { ciphDecrypt } from '../helpers/helpers';
+
 const appReducer = (state, action) => {
     switch (action.type) {
     
+      case 'REGISTER-USER-DATA':
+        return {
+          ...state,
+          myName: state.registerFormData.publicName,
+          masterkey: state.registerFormData.masterKey,
+          isSet: true,
+        };
+
+      case 'UPDATE_ROOM-NAME-FIELD':
+        return {
+          ...state,
+          registerFormData: {
+            ...state.registerFormData,
+            roomName: action.text
+          }
+        };
+
+      case 'UPDATE_ROOM-KEY-FIELD':
+        return {
+          ...state,
+          registerFormData: {
+            ...state.registerFormData,
+            roomKey: action.text
+          }
+        };
+
+      case 'UPDATE_MASTER-KEY-FIELD':
+        return {
+          ...state,
+          registerFormData: {
+            ...state.registerFormData,
+            masterKey: action.text
+          }
+        };
+
+      case 'UPDATE_PUBLIC-NAME-FIELD':
+        return {
+          ...state,
+          registerFormData: {
+            ...state.registerFormData,
+            publicName: action.text
+          }
+        };
+
       case 'SET_STATE':
         return {
           ...state,
@@ -13,26 +59,37 @@ const appReducer = (state, action) => {
           currentRoom: action.room
         };
 
-      case 'ROOM_ADD':
+      case 'ROOM_ADD_CREATE':
         return {
           ...state,
           rooms: [
             {
-              id: 'IUQHWFD98QWH',
-              name: 'Newroom',
-              key: 'AUI9SHD89',
-              messages: [
-                  {
-                      name: 'Frank',
-                      recieved: '15:29',
-                      decryptedMessage: 'Hei dette er fra frank :)',
-                      rawMessage: [ 'OIHJEWD98QWYH', 'AUISDGAISUD', '8U9AHS98' ]
-                  }
-              ],
-              inputField: "Your message here..."
+              id: action.id,
+              name: action.name,
+              key: action.key,
+              messages: [],
+              inputField: ''
             },
             ...state.rooms
-          ]
+          ],
+          currentRoom: {
+            id: action.id,
+            name: action.name,
+            key: action.key,
+            messages: [],
+            inputField: ''
+          },
+          registerFormData: {
+            ...state.registerFormData,
+            roomName: '',
+            roomKey: '' 
+          }
+        };
+      
+      case 'ROOM_ADD':
+        return {
+          ...state,
+          currentRoom: 'CreateForm'
         };
         
       case 'INPUT_CHANGE':
@@ -93,6 +150,12 @@ const appReducer = (state, action) => {
               ...state.currentRoom.messages
             ]
           }
+        };
+
+      case 'LOAD_STATE':
+        return {
+          ...state,
+          load: true
         };
 
       default:
