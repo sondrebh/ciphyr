@@ -28,6 +28,7 @@
     "@babel/polyfill": "^7.6.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "crypto-random-string": "^3.0.1",
+    "express": "^4.17.1",
     "file-loader": "^4.2.0",
     "js-sha512": "^0.8.0",
     "mini-css-extract-plugin": "^0.8.0",
