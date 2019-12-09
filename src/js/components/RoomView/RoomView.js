@@ -1,6 +1,9 @@
 // Contrib
 import React, { useContext } from 'react';
 
+// Custom
+import { CPR } from '../../helpers/helpers';
+
 // Context
 import AppContext from '../../context/AppContext';
 
@@ -22,9 +25,9 @@ const RoomView = () => {
         { state.rooms.map( room => (
           <Room 
             room={room}
-            key={room.id}
+            key={CPR({ length: 10 })}
           />
-         ))}
+        ))}
 
         <button 
           onClick={ () => dispatch( { type: 'ROOM_ADD' } ) }
@@ -38,6 +41,14 @@ const RoomView = () => {
               return <img src={plusIconDisabled} />
             }
           })()}
+        </button>
+
+        <button 
+          onClick={ () => dispatch( { type: 'ROOM_JOIN' } ) }
+          disabled={!state.isSet}
+          className={!state.isSet ? 'disabled' : ''}
+        >
+          Join
         </button>
       </div>
     );

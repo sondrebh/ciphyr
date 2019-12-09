@@ -1,6 +1,7 @@
 // Contrib
 import React, { useContext, useState, useEffect } from 'react';
 import { CPR } from '../../helpers/helpers';
+import firebase from '../../firebase/firebase';
 
 // Context
 import AppContext from '../../context/AppContext';
@@ -10,6 +11,19 @@ const CreateForm = props => {
     const { state, dispatch } = useContext(AppContext);
 
     const [ roomID, setRoomID ] = useState(CPR({length: 8}));
+
+    const handleCreate = e => {
+        dispatch({
+            type: 'ROOM_ADD_CREATE',
+            id: roomID,
+            name: state.registerFormData.roomName,
+            key: state.registerFormData.roomKey 
+        });
+
+        firebase.ref().child(roomID).set({
+            messages: 'empty'
+        });
+    };
 
     return (
         <div className='CreateForm'>
@@ -30,23 +44,13 @@ const CreateForm = props => {
                 onChange={ e => dispatch( {type: 'UPDATE_ROOM-KEY-FIELD', text: e.target.value } ) }
                 onKeyDown={ e => {
                       if (e.key === 'Enter') {
-                        dispatch( {
-                            type: 'ROOM_ADD_CREATE',
-                            id: roomID,
-                            name: state.registerFormData.roomName,
-                            key: state.registerFormData.roomKey 
-                        } );
+                        handleCreate();
                       }
                 }}
             />
 
             <button 
-                onClick={ () => dispatch( { 
-                    type: 'ROOM_ADD_CREATE',
-                    id: roomID,
-                    name: state.registerFormData.roomName,
-                    key: state.registerFormData.roomKey
-                } ) }
+                onClick={ () =>  handleCreate()}
             >
                 Create room
             </button>

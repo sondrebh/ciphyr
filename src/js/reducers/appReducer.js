@@ -85,11 +85,44 @@ const appReducer = (state, action) => {
             roomKey: '' 
           }
         };
+
+      case 'ROOM_ADD_JOIN':
+        return {
+          ...state,
+          rooms: [
+            {
+              id: action.id,
+              name: action.name,
+              key: action.key,
+              messages: [],
+              inputField: ''
+            },
+            ...state.rooms
+          ],
+          currentRoom: {
+            id: action.id,
+            name: action.name,
+            key: action.key,
+            messages: [],
+            inputField: ''
+          },
+          registerFormData: {
+            ...state.registerFormData,
+            roomName: '',
+            roomKey: '' 
+          }
+        };
       
       case 'ROOM_ADD':
         return {
           ...state,
           currentRoom: 'CreateForm'
+        };
+
+      case 'ROOM_JOIN':
+        return {
+          ...state,
+          currentRoom: 'JoinForm'
         };
         
       case 'INPUT_CHANGE':

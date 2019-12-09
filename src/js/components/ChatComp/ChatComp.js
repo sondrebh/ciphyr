@@ -7,6 +7,7 @@ import AppContext from '../../context/AppContext';
 import DecryptingForm from '../decryptingform/DecryptingForm';
 import LoadForm from '../loadform/LoadForm';
 import CreateForm from '../createform/CreateForm';
+import JoinForm from '../joinform/JoinForm';
 import RegisterForm from '../registerform/RegisterForm';
 import ChatView from '../chatview/ChatView';
 
@@ -19,7 +20,7 @@ const ChatComp = () => {
 
         {
           (() => {
-            if(state.isSet && !state.rooms.length < 1 && state.currentRoom !== 'CreateForm') {
+            if(state.isSet && !state.rooms.length < 1 && state.currentRoom !== 'CreateForm' && state.currentRoom !== 'JoinForm') {
               return (
                 <>
                   <ChatView />
@@ -43,6 +44,10 @@ const ChatComp = () => {
 
             if(state.currentRoom === 'CreateForm') {
               return <CreateForm />
+            }
+
+            if(state.currentRoom === 'JoinForm') {
+              return <JoinForm />
             }
 
             if(state.load) {

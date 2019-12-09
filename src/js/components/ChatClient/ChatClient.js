@@ -3,7 +3,7 @@ import React, { useReducer, useEffect } from 'react';
 import useInterval from 'react-useinterval';
 
 // Custom
-import { ciphEncrypt } from '../../helpers/helpers';
+import { ciphEncrypt, ciphDecrypt } from '../../helpers/helpers';
 
 // State - related
 import appReducer from '../../reducers/appReducer';
@@ -27,9 +27,7 @@ const ChatClient = () => {
     }, []);
 
     useInterval(() => {
-        if(state.isSet) {
-            localStorage.setItem('state', ciphEncrypt(JSON.stringify(state), state.masterkey));
-        }
+        localStorage.setItem('state', JSON.stringify(state));
     }, 3000);
 
     return (
