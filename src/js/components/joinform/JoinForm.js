@@ -1,7 +1,6 @@
 // Contrib
 import React, { useContext, useState, useEffect } from 'react';
 import { CPR } from '../../helpers/helpers';
-import firebase from '../../firebase/firebase';
 import fbHandler from '../../firebase/actions';
 
 // Context
@@ -15,21 +14,7 @@ const JoinForm = props => {
     const [ keyInputVal, setKeyInputVal ] = useState('');
     const [ idInputVal, setIDInputVal ] = useState('');
 
-    const handleJoin = e => {
-        firebase.ref(idInputVal+'/messages').once('value').then(snapshot => {
-            console.log(snapshot);
-            dispatch({
-                type: 'ROOM_ADD_JOIN',
-                id: idInputVal,
-                name: nameInputVal,
-                key: keyInputVal 
-            });
-            dispatch({ type: 'MESSAGE_SEND', text: snapshot.val() });
-            fbHandler.scream();
-        }).catch(() => {
-            alert('Failed to join room! Try again...');
-        });
-    };
+    fbHandler.setDispatch(dispatch);
 
     return (
         <div className='CreateForm'>
@@ -54,13 +39,13 @@ const JoinForm = props => {
                 onChange={ e => setKeyInputVal(e.target.value) }
                 onKeyDown={ e => {
                       if (e.key === 'Enter') {
-                        handleJoin();
+                        fbHandler.roomJoin(idInputVal, nameInputVal, keyInputVal);
                       }
                 }}
             />
 
             <button 
-                onClick={ () =>  handleJoin()}
+                onClick={ () => fbHandler.roomJoin(idInputVal, nameInputVal, keyInputVal) }
             >
                 Join
             </button>
