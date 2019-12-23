@@ -1,9 +1,7 @@
 // Contrib
 import React, { useReducer, useEffect } from 'react';
 import useInterval from 'react-useinterval';
-
-// Custom
-import { ciphEncrypt, ciphDecrypt } from '../../helpers/helpers';
+import simpleEncryptor from 'simple-encryptor';
 
 // State - related
 import appReducer from '../../reducers/appReducer';
@@ -27,7 +25,10 @@ const ChatClient = () => {
     }, []);
 
     useInterval(() => {
-        localStorage.setItem('state', JSON.stringify(state));
+        if(state.isSet) {
+            let encryptor = simpleEncryptor(state.masterkey);
+            localStorage.setItem('state', encryptor.encrypt(JSON.stringify(state)));
+        }
     }, 3000);
 
     return (

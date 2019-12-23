@@ -1,17 +1,9 @@
 .DecryptingForm {
-    margin-top: 150px;
-    width: 500px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    hyphens: auto;
-    box-sizing: border-box;
-    padding: 20px;
-    word-wrap: break-word;
-    border-radius: 12px;
-    position: absolute;
-    bottom: 200px;
+    width: 100%;
+    margin-top: 300px;
+    text-align: center;
 
     p {
-        font-size: 16px;
+        font-size: 18px;
     }
 }

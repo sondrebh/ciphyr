@@ -2,6 +2,7 @@
 import React from 'react';
 
 const Message = props => {
+
     return (
       <div className={ props.mine ? 'Message' : 'Message Message--recieved' }>
         <div>

@@ -1,8 +1,6 @@
 // Contrib
 import React, { useContext, useEffect, useState } from 'react';
-
-// Custom
-import { ciphEncrypt, ciphDecrypt } from '../../helpers/helpers'
+import simpleEncryptor from 'simple-encryptor';
 
 // Context
 import AppContext from '../../context/AppContext';
@@ -12,7 +10,13 @@ const DecryptingForm = props => {
     const { state, dispatch } = useContext(AppContext);
 
     useEffect(() => {
-        dispatch({ type: 'LOAD_STATE_COMPLETE', str: localStorage.getItem('state') });
+        let encryptor = simpleEncryptor(state.masterkey);
+        if(encryptor.decrypt(localStorage.getItem('state'))) {
+            dispatch( { type: 'LOAD_STATE_COMPLETE', str: encryptor.decrypt(localStorage.getItem('state')) } );
+        } else {
+            alert('Couldn\'t decrypt data, refresh to try another key, or click OK to start fresh!');
+            dispatch( { type: 'START_FRESH' } );
+        }
     }, []);
 
     return (

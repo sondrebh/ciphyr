@@ -1,4 +1,8 @@
+// Contrib
 import React, { useContext } from 'react';
+
+// Custom
+import fbHandler from '../../firebase/actions';
 
 // Context
 import AppContext from '../../context/AppContext';
@@ -15,6 +19,12 @@ const ChatComp = () => {
 
     const { state, dispatch } = useContext(AppContext);
 
+    fbHandler.setDispatch(dispatch);
+
+    const handleSend = e => {
+      fbHandler.messageSend(state.currentRoom.id, state.myName, e.target.value, state.currentRoom.key);
+    };
+
     return (
       <div className='ChatComp'>
 
@@ -30,7 +40,7 @@ const ChatComp = () => {
                     onChange={ e => dispatch( { type: 'INPUT_CHANGE', text: e.target.value } ) }
                     onKeyDown={ e => {
                       if (e.key === 'Enter') {
-                        dispatch( { type: 'MESSAGE_SEND', text: e.target.value } );
+                        handleSend(e);
                       }
                     }}
                   />

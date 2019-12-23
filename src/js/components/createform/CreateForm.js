@@ -1,7 +1,9 @@
 // Contrib
 import React, { useContext, useState, useEffect } from 'react';
 import { CPR } from '../../helpers/helpers';
-import firebase from '../../firebase/firebase';
+
+// Custom
+import fbHandler from '../../firebase/actions';
 
 // Context
 import AppContext from '../../context/AppContext';
@@ -12,17 +14,10 @@ const CreateForm = props => {
 
     const [ roomID, setRoomID ] = useState(CPR({length: 8}));
 
-    const handleCreate = e => {
-        dispatch({
-            type: 'ROOM_ADD_CREATE',
-            id: roomID,
-            name: state.registerFormData.roomName,
-            key: state.registerFormData.roomKey 
-        });
+    fbHandler.setDispatch(dispatch);
 
-        firebase.ref().child(roomID).set({
-            messages: 'empty'
-        });
+    const handleCreate = () => {
+        fbHandler.roomCreate(roomID, state.registerFormData.roomName, state.registerFormData.roomKey);
     };
 
     return (

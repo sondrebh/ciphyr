@@ -9,24 +9,32 @@ const LoadForm = props => {
     const { state, dispatch } = useContext(AppContext);
     const [ inputVal, setInputVal ] = useState('');
 
+    const formValidate = () => {
+        if(inputVal && inputVal.length >= 16) {
+            dispatch( { type: 'LOAD_STATE_START', masterKey: inputVal } );
+        } else {
+            alert('The key needs to be at least 16 characters long!');
+        }
+    };
+
     return (
         <div className='LoadForm'>
-            <h1>CONFIGURATION FOUND</h1>
-            <p>A configuration was found, enter your masterkey to decrypt and load stored data.</p>
+            <h1>DATA FOUND</h1>
+            <p>Saved data was found, enter your masterkey to decrypt and load the stored data.</p>
 
             <h3>Masterkey</h3>
             <input 
-                placeholder='Ex: HD91H2891HOH9'
+                placeholder='Ex: IOSJF02IF0J3209F...'
                 value={inputVal}
                 onChange={ e => setInputVal(e.target.value) }
                 onKeyDown={ e => {
                       if (e.key === 'Enter') {
-                        dispatch( { type: 'LOAD_STATE_START', masterKey: inputVal } );
+                        formValidate();
                       }
                 }}
             />
 
-            <button onClick={ () => dispatch( { type: 'LOAD_STATE_START', masterKey: inputVal } ) }>Load config</button>
+            <button onClick={ () => formValidate() }>Load config</button>
             <button onClick={ () => dispatch( { type: 'START_FRESH' } ) }>Or start fresh</button>
         </div>
     );

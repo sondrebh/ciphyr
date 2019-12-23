@@ -1,4 +1,5 @@
 import firebase from './firebase';
+import simpleEncryptor from 'simple-encryptor';
 
 const fbHandler = {
 
@@ -28,6 +29,41 @@ const fbHandler = {
             }
         }).catch(() => {
             alert('Failed to join room! Try again...');
+        });
+    },
+
+    roomCreate(roomID, roomName, key) {
+        this.dispatch({
+            type: 'ROOM_ADD_CREATE',
+            id: roomID,
+            name: roomName,
+            key: key 
+        });
+
+        firebase.ref().child(roomID).set({
+            messages: 'empty'
+        });
+    },
+
+    messageSend(roomID, myName, text, key) {
+
+        const encryptor = simpleEncryptor(key);
+
+        firebase.ref(roomID+'/messages').once('value').then(snapshot => {
+            if(snapshot.exists()) {
+                firebase.ref(roomID).child('messages').set({
+                    [myName]: {
+                        text: encryptor.encrypt(text),
+                        date: new Date()
+                    }
+                });
+
+                dispatch( { type: 'MESSAGE_SEND', text: text } );
+            } else {
+                alert('Couldn\'t sensd message...');
+            }
+        }).catch(() => {
+            alert('Couldn\'t send message...');
         });
     }
 

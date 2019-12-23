@@ -37,6 +37,7 @@
     "react-dom": "^16.11.0",
     "react-router-dom": "^5.1.2",
     "react-useinterval": "^1.0.1",
+    "simple-encryptor": "^3.0.0",
     "uuid": "^3.3.3",
     "webpack-dev-server": "^3.9.0"
   }
