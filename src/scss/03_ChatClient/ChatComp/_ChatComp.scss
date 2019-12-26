@@ -1,6 +1,7 @@
 .ChatComp {
     height: 100%;
-    padding: 0px 60px;
+    margin: 0px 60px;
+    position: relative;
 
     @import './DecryptingForm/DecryptingForm';
 
@@ -12,8 +13,12 @@
 
     @import './ChatView/ChatView';
 
-    input {
+    & > input {
+        margin-top: 20px;
+        box-sizing: border-box;
+        
+        position: absolute;
+        top: 80%;
         margin-top: 20px;
     }
-
 }

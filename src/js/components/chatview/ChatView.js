@@ -1,6 +1,9 @@
 // Contrib
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import uuid from 'uuid'
+
+// Custom
+import fbHandler from '../../firebase/actions';
 
 // Context
 import AppContext from '../../context/AppContext';
@@ -11,6 +14,15 @@ import Message from '../message/Message';
 const ChatView = () => {
 
     const { state, dispatch } = useContext(AppContext);
+
+    useEffect(() => {
+      fbHandler.setDispatch(dispatch);
+      fbHandler.roomSubscribe(state.currentRoom.id, state.currentRoom.key);
+
+      return () => {
+        fbHandler.roomUnsubscribe(state.currentRoom.id);
+      };
+    }, []);
 
     return (
       <div className='ChatView'>

@@ -9,10 +9,10 @@ const Message = props => {
             <h3>{ props.name } { props.mine && '(you)' }</h3><h3>{ props.recieved }</h3>
         </div>
         <p>
-            { props.text }
+            { props.text !== null ? props.text : '--- This message was not decryptable... Do you have the right key? ---' }
         </p>
       </div>
-    );
+    );z
   };
   
   export default Message;

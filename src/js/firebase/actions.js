@@ -22,8 +22,6 @@ const fbHandler = {
                     name: roomName,
                     key: key 
                 });
-
-                this.dispatch({ type: 'MESSAGE_SEND', text: snapshot.val() });
             } else {
                 alert('This room doesn\'t exist, are you sure you have the right ID?');
             }
@@ -33,30 +31,54 @@ const fbHandler = {
     },
 
     roomCreate(roomID, roomName, key) {
-        this.dispatch({
-            type: 'ROOM_ADD_CREATE',
-            id: roomID,
-            name: roomName,
-            key: key 
-        });
-
         firebase.ref().child(roomID).set({
-            messages: 'empty'
+            messages: 0
+        }).then(() => {
+            this.dispatch({
+                type: 'ROOM_ADD_CREATE',
+                id: roomID,
+                name: roomName,
+                key: key 
+            });
+        }).catch(() => {
+            alert('Something went wrong, could not create room...');
         });
+    },
+
+    roomSubscribe(roomID, key) {
+
+        const encryptor = simpleEncryptor(key);
+
+        firebase.ref(roomID+'/messages').on('value', snapshot => {
+            if(snapshot.val() !== 0) {
+                snapshot.forEach(childSnapshot => {
+                    this.dispatch( { type: 'MESSAGE_SEND', data: { 
+                        id: childSnapshot.key,
+                        name: childSnapshot.val().name,
+                        text: encryptor.decrypt(childSnapshot.val().text)
+                    }});
+                });
+            }
+        });
+    },
+
+    roomUnsubscribe(roomID) {
+        firebase.ref(roomID+'/messages').off('value');
     },
 
     messageSend(roomID, myName, text, key) {
 
         const encryptor = simpleEncryptor(key);
 
-        firebase.ref(roomID).child('messages').set({
-            [myName]: {
-                text: encryptor.encrypt(text),
-                date: new Date()
-            }
-        }).then().catch((e) => {alert(e)});
-
-        this.dispatch( { type: 'MESSAGE_SEND', text: text } );
+        firebase.ref(roomID).child('messages').push({
+            name: myName,
+            text: encryptor.encrypt(text),
+            date: new Date()
+        }).then(() => {
+            // this.dispatch( { type: 'MESSAGE_SEND', text: text } );
+        }).catch(() => {
+            alert('Could not send message...');
+        });
     }
 
 };

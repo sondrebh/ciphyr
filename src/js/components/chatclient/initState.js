@@ -6,11 +6,12 @@ const initState = {
     decrypting: false,
     rooms: [],
     currentRoom: {
-        id: 'IUAHDSUIASHUISAHCSAIP0',
+        id: '-',
         name: 'Frank',
         key: 'SECRETER',
         messages: [
             {
+                id: "ssdas",
                 name: 'Frank',
                 recieved: '15:29',
                 decryptedMessage: 'Hei dette er fra frank :)',
@@ -24,7 +25,8 @@ const initState = {
         masterKey: '',
         roomName: '',
         roomKey: ''   
-    }
+    },
+    chatViewKey: 'foijfoijf'
 };
 
 export default initState;

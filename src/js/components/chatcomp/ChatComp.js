@@ -33,7 +33,7 @@ const ChatComp = () => {
             if(state.isSet && !state.rooms.length < 1 && state.currentRoom !== 'CreateForm' && state.currentRoom !== 'JoinForm') {
               return (
                 <>
-                  <ChatView />
+                  <ChatView key={state.chatViewKey} />
                   <input 
                     placeholder='Your message here...'
                     value={ state.currentRoom.inputField }

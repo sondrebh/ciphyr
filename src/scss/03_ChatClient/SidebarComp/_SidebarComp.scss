@@ -13,4 +13,41 @@
     }
 
     @import './RoomView/RoomView';
+
+    .RoomInfo {
+        margin-top: 20px;
+        padding-right: 60px;
+
+        .title {
+            font-weight: $semi;
+            padding-bottom: 8px;
+            border-bottom: 2px solid $black;
+            font-size: 20px;
+        }
+
+        p {
+            margin-top: 10px;
+            font-size: 16px;
+            color: $black;
+
+            span {
+                font-weight: $semi;
+            }
+        }
+
+        .btnLeave {
+            background-color: rgb(67, 67, 67);
+            color: $white;
+            border: none;
+
+            &:hover {
+                background-color: rgb(80, 80, 80);
+            }
+        }
+
+        button {
+            margin-top: 10px;
+            width: 100%;
+        }
+    }
 }

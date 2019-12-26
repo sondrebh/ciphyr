@@ -1,5 +1,3 @@
-import { ciphDecrypt } from '../helpers/helpers';
-
 const appReducer = (state, action) => {
     switch (action.type) {
     
@@ -56,8 +54,26 @@ const appReducer = (state, action) => {
       case 'ROOM_SET_CURRENT':
         return {
           ...state,
+          chatViewKey: Math.random(),
           currentRoom: action.room
         };
+
+      case 'ROOM_MESSAGES_WIPE':
+        return {
+          ...state,
+          rooms: state.rooms.map( room => {
+            if (room.id === state.currentRoom.id) {
+              room.messages = [];
+              return room;
+            } else {
+              return room;
+            }
+          }),
+          currentRoom: {
+            ...state.currentRoom,
+            messages: []
+          }
+        }
 
       case 'ROOM_ADD_CREATE':
         return {
@@ -146,19 +162,55 @@ const appReducer = (state, action) => {
           }
         };
 
+      case 'ROOM_DROP':
+        let newRooms = state.rooms.filter(room => room.id !== state.currentRoom.id);
+      return {
+        ...state,
+        rooms: newRooms,
+        currentRoom: 'CreateForm'
+      };
+
       case 'MESSAGE_SEND':
         let updatedRoomsWithMessages = state.rooms.map( room => {
           if (room.id === state.currentRoom.id) {
             room.inputField = '';
-            room.messages = [
-              {
-                name: state.myName,
-                recieved: 'DATEHERE',
-                decryptedMessage: action.text,
-                rawMessage: [ 'OIHJEWD98QWYH', 'AUISDGAISUD', '8U9AHS98' ]
-              }, 
-              ...state.currentRoom.messages
-            ]
+            
+            let exists = false;
+            room.messages.forEach( (message, i) => {
+              if(message.id === action.data.id) {
+                exists = true;
+              }
+              
+              if(i === room.messages.length - 1) {
+                if(!exists) {
+                  
+                  room.messages = [
+                    {
+                      id: action.data.id,
+                      name: action.data.name,
+                      recieved: 'DATEHERE',
+                      decryptedMessage: action.data.text,
+                      rawMessage: [ 'OIHJEWD98QWYH', 'AUISDGAISUD', '8U9AHS98' ]
+                    }, 
+                    ...state.currentRoom.messages
+                  ]
+                }
+              }
+            });
+
+            if(room.messages.length === 0) {
+              room.messages = [
+                {
+                  id: action.data.id,
+                  name: action.data.name,
+                  recieved: 'DATEHERE',
+                  decryptedMessage: action.data.text,
+                  rawMessage: [ 'OIHJEWD98QWYH', 'AUISDGAISUD', '8U9AHS98' ]
+                }, 
+                ...state.currentRoom.messages
+              ]
+            }
+
             return room;
           } else {
             return room;
@@ -173,15 +225,7 @@ const appReducer = (state, action) => {
           currentRoom: {
             ...state.currentRoom,
             inputField: '',
-            messages: [
-              {
-                name: state.myName,
-                recieved: 'DATEHERE',
-                decryptedMessage: action.text,
-                rawMessage: [ 'OIHJEWD98QWYH', 'AUISDGAISUD', '8U9AHS98' ]
-              },
-              ...state.currentRoom.messages
-            ]
+            messages: updatedRoomsWithMessages.filter(room => room.id === state.currentRoom.id)[0].messages
           }
         };
 
