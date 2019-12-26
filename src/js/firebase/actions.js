@@ -49,22 +49,14 @@ const fbHandler = {
 
         const encryptor = simpleEncryptor(key);
 
-        firebase.ref(roomID+'/messages').once('value').then(snapshot => {
-            if(snapshot.exists()) {
-                firebase.ref(roomID).child('messages').set({
-                    [myName]: {
-                        text: encryptor.encrypt(text),
-                        date: new Date()
-                    }
-                });
-
-                dispatch( { type: 'MESSAGE_SEND', text: text } );
-            } else {
-                alert('Couldn\'t sensd message...');
+        firebase.ref(roomID).child('messages').set({
+            [myName]: {
+                text: encryptor.encrypt(text),
+                date: new Date()
             }
-        }).catch(() => {
-            alert('Couldn\'t send message...');
-        });
+        }).then().catch((e) => {alert(e)});
+
+        this.dispatch( { type: 'MESSAGE_SEND', text: text } );
     }
 
 };
