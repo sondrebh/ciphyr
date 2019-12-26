@@ -1,5 +1,5 @@
 // Contrib
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 // Custom
 import fbHandler from '../../firebase/actions';
@@ -18,11 +18,13 @@ import ChatView from '../chatview/ChatView';
 const ChatComp = () => {
 
     const { state, dispatch } = useContext(AppContext);
+    const [ inputField, setInputField ] = useState('');
 
     fbHandler.setDispatch(dispatch);
 
     const handleSend = e => {
       fbHandler.messageSend(state.currentRoom.id, state.myName, e.target.value, state.currentRoom.key);
+      setInputField('');
     };
 
     return (
@@ -36,8 +38,8 @@ const ChatComp = () => {
                   <ChatView key={state.chatViewKey} />
                   <input 
                     placeholder='Your message here...'
-                    value={ state.currentRoom.inputField }
-                    onChange={ e => dispatch( { type: 'INPUT_CHANGE', text: e.target.value } ) }
+                    value={ inputField }
+                    onChange={ e => setInputField(e.target.value) }
                     onKeyDown={ e => {
                       if (e.key === 'Enter') {
                         handleSend(e);

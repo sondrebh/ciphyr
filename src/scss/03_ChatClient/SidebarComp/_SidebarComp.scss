@@ -15,7 +15,7 @@
     @import './RoomView/RoomView';
 
     .RoomInfo {
-        margin-top: 20px;
+        margin-top: 60px;
         padding-right: 60px;
 
         .title {
@@ -32,16 +32,6 @@
 
             span {
                 font-weight: $semi;
-            }
-        }
-
-        .btnLeave {
-            background-color: rgb(67, 67, 67);
-            color: $white;
-            border: none;
-
-            &:hover {
-                background-color: rgb(80, 80, 80);
             }
         }
 

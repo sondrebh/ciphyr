@@ -16,6 +16,14 @@ const JoinForm = props => {
 
     fbHandler.setDispatch(dispatch);
 
+    const formValidate = () => {
+        if(nameInputVal.length > 0 && keyInputVal.length >= 16 && idInputVal.length > 0) {
+            fbHandler.roomJoin(idInputVal, nameInputVal, keyInputVal);
+        } else {
+            alert('Error: room name / room id must be set and encryption key must be at least 16 characters long');
+        }
+    };
+
     return (
         <div className='CreateForm'>
             <h1>JOINING NEW ROOM</h1>
@@ -39,13 +47,13 @@ const JoinForm = props => {
                 onChange={ e => setKeyInputVal(e.target.value) }
                 onKeyDown={ e => {
                       if (e.key === 'Enter') {
-                        fbHandler.roomJoin(idInputVal, nameInputVal, keyInputVal);
+                        formValidate();
                       }
                 }}
             />
 
             <button 
-                onClick={ () => fbHandler.roomJoin(idInputVal, nameInputVal, keyInputVal) }
+                onClick={ () => formValidate() }
             >
                 Join
             </button>

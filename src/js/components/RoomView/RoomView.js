@@ -1,5 +1,5 @@
 // Contrib
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 // Custom
 import { CPR } from '../../helpers/helpers';
@@ -17,6 +17,7 @@ import Room from '../room/room';
 const RoomView = () => {
 
     const { state, dispatch } = useContext(AppContext);
+    const [ create, setCreate ] = useState(false);
 
     return (
       <div className="RoomView">
@@ -29,27 +30,41 @@ const RoomView = () => {
           />
         ))}
 
-        <button 
-          onClick={ () => dispatch( { type: 'ROOM_ADD' } ) }
-          disabled={!state.isSet}
-          className={!state.isSet ? 'disabled' : ''}
-        >
-          {(() => {
-            if(state.isSet) {
-              return <img src={plusIconEnabled} />
-            } else {
-              return <img src={plusIconDisabled} />
-            }
-          })()}
-        </button>
+        {!create && (
+          <button 
+            onClick={ () => setCreate(true) }
+            disabled={!state.isSet}
+            className={!state.isSet ? 'disabled' : ''}
+          >
+            {(() => {
+              if(state.isSet) {
+                return <img src={plusIconEnabled} />
+              } else {
+                return <img src={plusIconDisabled} />
+              }
+            })()}
+          </button>
+        )}
 
-        <button 
-          onClick={ () => dispatch( { type: 'ROOM_JOIN' } ) }
-          disabled={!state.isSet}
-          className={!state.isSet ? 'disabled' : ''}
-        >
-          Join
-        </button>
+        {create && (
+          <>
+            <button 
+              onClick={ () => { dispatch( { type: 'ROOM_ADD' } ); setCreate(false); } }
+              disabled={!state.isSet}
+              className={!state.isSet ? 'disabled' : ''}
+            >
+              Create
+            </button>
+
+            <button 
+              onClick={ () => { dispatch( { type: 'ROOM_JOIN' } ); setCreate(false); } }
+              disabled={!state.isSet}
+              className={!state.isSet ? 'disabled' : ''}
+            >
+              Join
+            </button>
+          </>
+        )}
       </div>
     );
   };

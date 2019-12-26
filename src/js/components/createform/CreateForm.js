@@ -20,6 +20,17 @@ const CreateForm = props => {
         fbHandler.roomCreate(roomID, state.registerFormData.roomName, state.registerFormData.roomKey);
     };
 
+    const formValidate = () => {
+
+        const { roomName, roomKey } = state.registerFormData;
+
+        if(roomName.length > 0 && roomKey.length >= 16) {
+            handleCreate();
+        } else {
+            alert('Error: room name must be set and encryption key must be at least 16 characters long');
+        }
+    };
+
     return (
         <div className='CreateForm'>
             <h1>CREATING NEW ROOM</h1>
@@ -39,13 +50,13 @@ const CreateForm = props => {
                 onChange={ e => dispatch( {type: 'UPDATE_ROOM-KEY-FIELD', text: e.target.value } ) }
                 onKeyDown={ e => {
                       if (e.key === 'Enter') {
-                        handleCreate();
+                        formValidate();
                       }
                 }}
             />
 
             <button 
-                onClick={ () =>  handleCreate()}
+                onClick={ () =>  formValidate()}
             >
                 Create room
             </button>

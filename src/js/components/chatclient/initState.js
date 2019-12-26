@@ -17,8 +17,7 @@ const initState = {
                 decryptedMessage: 'Hei dette er fra frank :)',
                 rawMessage: [ 'OIHJEWD98QWYH', 'AUISDGAISUD', '8U9AHS98' ]
             }
-        ],
-        inputField: ''
+        ]
     },
     registerFormData: {
         publicName: '',

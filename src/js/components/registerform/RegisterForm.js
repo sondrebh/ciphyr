@@ -1,8 +1,6 @@
 // Contrib
 import React, { useContext } from 'react';
 
-import { ciphDecrypt, ciphEncrypt } from '../../helpers/helpers';
-
 // logoClean
 import logoClean from '../../../icons/logoClean.svg'
 
@@ -12,6 +10,17 @@ import AppContext from '../../context/AppContext';
 const RegisterForm = props => {
 
     const { state, dispatch } = useContext(AppContext);
+
+    const formValidate = () => {
+
+        const { publicName, masterKey } = state.registerFormData;
+
+        if(publicName.length > 0 && masterKey.length >= 16) {
+            dispatch({ type: 'REGISTER-USER-DATA' });
+        } else {
+            alert('Error: public name must be set and master key must be at least 16 characters long');
+        }
+    };
 
     return (
         <div className='RegisterForm'>
@@ -33,12 +42,12 @@ const RegisterForm = props => {
                 onChange={ e => dispatch( {type: 'UPDATE_MASTER-KEY-FIELD', text: e.target.value } ) }
                 onKeyDown={ e => {
                       if (e.key === 'Enter') {
-                        dispatch( { type: 'REGISTER-USER-DATA' } );
+                        formValidate();
                       }
                 }}
             />
 
-            <button onClick={ () => dispatch( { type: 'REGISTER-USER-DATA' } ) }>Start chatting</button>
+            <button onClick={() => formValidate()}>Start chatting</button>
         </div>
     );
   };

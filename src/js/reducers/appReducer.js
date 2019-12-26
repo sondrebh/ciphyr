@@ -173,7 +173,6 @@ const appReducer = (state, action) => {
       case 'MESSAGE_SEND':
         let updatedRoomsWithMessages = state.rooms.map( room => {
           if (room.id === state.currentRoom.id) {
-            room.inputField = '';
             
             let exists = false;
             room.messages.forEach( (message, i) => {
@@ -224,7 +223,6 @@ const appReducer = (state, action) => {
           ],
           currentRoom: {
             ...state.currentRoom,
-            inputField: '',
             messages: updatedRoomsWithMessages.filter(room => room.id === state.currentRoom.id)[0].messages
           }
         };
