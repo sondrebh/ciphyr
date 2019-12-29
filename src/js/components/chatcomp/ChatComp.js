@@ -23,8 +23,20 @@ const ChatComp = () => {
     fbHandler.setDispatch(dispatch);
 
     const handleSend = e => {
-      fbHandler.messageSend(state.currentRoom.id, state.myName, e.target.value, state.currentRoom.key);
-      setInputField('');
+      switch (e.target.value) {
+
+        // Room commands
+        case '/room clear':
+          fbHandler.roomClear(state.currentRoom.id, state.myName, state.currentRoom.key);
+          setInputField('');
+          break;
+      
+        // Default case
+        default:
+          fbHandler.messageSend(state.currentRoom.id, state.myName, e.target.value, state.currentRoom.key);
+          setInputField('');
+          break;
+      }
     };
 
     return (

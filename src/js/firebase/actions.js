@@ -45,6 +45,17 @@ const fbHandler = {
         });
     },
 
+    roomClear(roomID, myName, key) {
+        firebase.ref().child(roomID).set({
+            messages: 0
+        }).then(() => {
+            this.dispatch({ type: 'ROOM_MESSAGES_WIPE' });
+            this.messageSend(roomID, 'Ciphyr.io', 'This room has been cleared by ' + myName + ' using the command "/room clear".', key);
+        }).catch(() => {
+            alert('Something went wrong, could not clear room...');
+        });
+    },
+
     roomSubscribe(roomID, key) {
 
         const encryptor = simpleEncryptor(key);
