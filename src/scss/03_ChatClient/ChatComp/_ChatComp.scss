@@ -21,4 +21,8 @@
         top: 80%;
         margin-top: 20px;
     }
+
+    @media (max-width: 900px) {
+        margin: 0px;
+    }
 }

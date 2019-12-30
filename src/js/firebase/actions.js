@@ -63,6 +63,10 @@ const fbHandler = {
         firebase.ref(roomID+'/messages').on('value', snapshot => {
             if(snapshot.val() !== 0) {
                 snapshot.forEach(childSnapshot => {
+                    if(childSnapshot.val().name === 'Ciphyr.io') {
+                        this.dispatch({ type: 'ROOM_MESSAGES_WIPE' });
+                    }
+                    
                     this.dispatch( { type: 'MESSAGE_SEND', data: { 
                         id: childSnapshot.key,
                         name: childSnapshot.val().name,

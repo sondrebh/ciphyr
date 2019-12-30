@@ -1,5 +1,6 @@
 .SidebarComp {
     height: 100%;
+    width: 100%;
 
     border-right: 3px solid $separatorGrey;
 
@@ -38,6 +39,19 @@
         button {
             margin-top: 10px;
             width: 100%;
+        }
+    }
+
+    @media (max-width: 1100px) {
+        border-right: 0;
+
+        & > img {
+            margin-left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .RoomInfo {
+            padding-right: 0px;
         }
     }
 }

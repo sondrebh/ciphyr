@@ -56,4 +56,8 @@
             background: rgb(255, 91, 102);
         }
     }
+
+    @media (max-width: 400px) {
+        width: 100%;
+    }
 }
