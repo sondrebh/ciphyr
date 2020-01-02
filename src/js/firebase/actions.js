@@ -1,4 +1,4 @@
-import firebase from './firebase';
+import { firebaseDb, firebaseAuth } from './firebase';
 import simpleEncryptor from 'simple-encryptor';
 
 const fbHandler = {
@@ -13,8 +13,14 @@ const fbHandler = {
 
     // firebaseHandler actions
 
+    login() {
+        firebaseAuth.signInAnonymously().catch(error => {
+            alert(error.message);
+        });
+    },
+
     roomJoin(roomID, roomName, key) {
-        firebase.ref(roomID+'/messages').once('value').then(snapshot => {
+        firebaseDb.ref('rooms/'+roomID+'/messages').once('value').then(snapshot => {
             if(snapshot.exists()) {
                 this.dispatch({
                     type: 'ROOM_ADD_JOIN',
@@ -31,7 +37,7 @@ const fbHandler = {
     },
 
     roomCreate(roomID, roomName, key) {
-        firebase.ref().child(roomID).set({
+        firebaseDb.ref('rooms').child(roomID).set({
             messages: 0
         }).then(() => {
             this.dispatch({
@@ -46,7 +52,7 @@ const fbHandler = {
     },
 
     roomClear(roomID, myName, key) {
-        firebase.ref().child(roomID).set({
+        firebaseDb.ref('rooms').child(roomID).set({
             messages: 0
         }).then(() => {
             this.dispatch({ type: 'ROOM_MESSAGES_WIPE' });
@@ -60,7 +66,7 @@ const fbHandler = {
 
         const encryptor = simpleEncryptor(key);
 
-        firebase.ref(roomID+'/messages').on('value', snapshot => {
+        firebaseDb.ref('rooms/'+roomID+'/messages').on('value', snapshot => {
             if(snapshot.val() !== 0) {
                 snapshot.forEach(childSnapshot => {
                     if(childSnapshot.val().name === 'Ciphyr.io') {
@@ -70,7 +76,8 @@ const fbHandler = {
                     this.dispatch( { type: 'MESSAGE_SEND', data: { 
                         id: childSnapshot.key,
                         name: childSnapshot.val().name,
-                        text: encryptor.decrypt(childSnapshot.val().text)
+                        text: encryptor.decrypt(childSnapshot.val().text),
+                        date: childSnapshot.val().date
                     }});
                 });
             }
@@ -78,17 +85,17 @@ const fbHandler = {
     },
 
     roomUnsubscribe(roomID) {
-        firebase.ref(roomID+'/messages').off('value');
+        firebaseDb.ref('rooms/'+roomID+'/messages').off('value');
     },
 
     messageSend(roomID, myName, text, key) {
 
         const encryptor = simpleEncryptor(key);
 
-        firebase.ref(roomID).child('messages').push({
+        firebaseDb.ref('rooms/'+roomID).child('messages').push({
             name: myName,
             text: encryptor.encrypt(text),
-            date: new Date()
+            date: new Date().getTime()
         }).then(() => {
             // this.dispatch( { type: 'MESSAGE_SEND', text: text } );
         }).catch(() => {

@@ -1,4 +1,6 @@
-import * as firebasee from 'firebase';
+import * as fb from 'firebase/app';
+import 'firebase/database';
+import 'firebase/auth';
 
 const config = {
     apiKey: "AIzaSyD4E--AdR3ENP91ecWtRHBkXM8c9gBsarc",
@@ -10,8 +12,9 @@ const config = {
     appId: "1:878800143764:web:f427f80deeca3c485d7b81"
 };
 
-firebasee.initializeApp(config);
+fb.initializeApp(config);
 
-const firebase = firebasee.database();
+const firebaseDb = fb.database();
+const firebaseAuth = fb.auth();
 
-export default firebase;
+export { firebaseDb, firebaseAuth };

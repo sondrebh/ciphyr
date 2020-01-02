@@ -1,6 +1,9 @@
 // Contrib
 import React, { useContext } from 'react';
 
+// Custom
+import fbHandler from '../../firebase/actions';
+
 // logoClean
 import logoClean from '../../../icons/logoClean.svg'
 
@@ -17,6 +20,7 @@ const RegisterForm = props => {
 
         if(publicName.length > 0 && masterKey.length >= 16) {
             dispatch({ type: 'REGISTER-USER-DATA' });
+            fbHandler.login();
         } else {
             alert('Error: public name must be set and master key must be at least 16 characters long');
         }

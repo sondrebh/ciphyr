@@ -35,7 +35,7 @@ const LoadForm = props => {
             />
 
             <button onClick={ () => formValidate() }>Load config</button>
-            <button onClick={ () => dispatch( { type: 'START_FRESH' } ) }>Or start fresh</button>
+            <button onClick={ () => dispatch({ type: 'START_FRESH' }) }>Or start fresh</button>
         </div>
     );
   };

@@ -171,6 +171,14 @@ const appReducer = (state, action) => {
       };
 
       case 'MESSAGE_SEND':
+        function prettyDate2(time) {
+          const date = new Date(parseInt(time));
+          return date.toLocaleTimeString(navigator.language, {
+            hour: '2-digit',
+            minute:'2-digit'
+          });
+        }
+
         let updatedRoomsWithMessages = state.rooms.map( room => {
           if (room.id === state.currentRoom.id) {
             
@@ -187,7 +195,7 @@ const appReducer = (state, action) => {
                     {
                       id: action.data.id,
                       name: action.data.name,
-                      recieved: 'DATEHERE',
+                      recieved: prettyDate2(action.data.date),
                       decryptedMessage: action.data.text,
                       rawMessage: [ 'OIHJEWD98QWYH', 'AUISDGAISUD', '8U9AHS98' ]
                     }, 
@@ -202,7 +210,7 @@ const appReducer = (state, action) => {
                 {
                   id: action.data.id,
                   name: action.data.name,
-                  recieved: 'DATEHERE',
+                  recieved: prettyDate2(action.data.date),
                   decryptedMessage: action.data.text,
                   rawMessage: [ 'OIHJEWD98QWYH', 'AUISDGAISUD', '8U9AHS98' ]
                 }, 

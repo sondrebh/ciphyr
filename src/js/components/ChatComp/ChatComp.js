@@ -19,11 +19,13 @@ const ChatComp = () => {
 
     const { state, dispatch } = useContext(AppContext);
     const [ inputField, setInputField ] = useState('');
+    const [ canSend, setCanSend ] = useState(true);
 
     fbHandler.setDispatch(dispatch);
 
     const handleSend = e => {
-      switch (e.target.value) {
+      if(canSend) {
+        switch (e.target.value) {
 
         // Room commands
         case '/room clear':
@@ -35,7 +37,12 @@ const ChatComp = () => {
         default:
           fbHandler.messageSend(state.currentRoom.id, state.myName, e.target.value, state.currentRoom.key);
           setInputField('');
+          setCanSend(false);
+          setTimeout(() => {
+            setCanSend(true);
+          }, 1250);
           break;
+        } 
       }
     };
 
