@@ -5,7 +5,7 @@ const Home = () => (
     <div>
         <h1>This is Ciphyr.IO</h1>
         <h2>Let's go!</h2>
-        <NavLink to="/chat">Chat</NavLink>
+        <NavLink to="/ciphyr/chat">Chat</NavLink>
     </div>
 );
 
