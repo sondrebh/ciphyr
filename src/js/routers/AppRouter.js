@@ -9,7 +9,7 @@ const AppRouter = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/" component={ChatClient} exact />
+                <Route path="/ciphyr" component={ChatClient} exact />
                 <Route component={NotFound} />
             </Switch>
         </BrowserRouter>  
